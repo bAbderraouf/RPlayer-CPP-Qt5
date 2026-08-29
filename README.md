@@ -21,3 +21,8 @@ Qt Widgets
 QMediaPlayer
 QAudioRecorder
 qmake
+Project Status
+
+🚧 Work in progress
+
+This project is currently under development.
