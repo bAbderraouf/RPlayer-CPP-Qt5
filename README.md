@@ -23,5 +23,14 @@ RPlayer is designed to **play audio** and **video** files, with additional **aud
 - qmake
 - Project Status
 
+## Media Support
+
+RPlayer uses Qt 5 QMediaPlayer for audio and video playback.
+
+Media format support depends on the multimedia backend and codecs available on the operating system.
+
+On Windows, some media files may require additional codecs or multimedia components. If certain audio or video files cannot be played, installing the [K-Lite Codec Pack](https://www.codecguide.com/download_k-lite_codec_pack_basic.htm) may improve compatibility.
+
+
 🚧 Work in progress
-This project is currently under development.
+This project is currently **under development**.
