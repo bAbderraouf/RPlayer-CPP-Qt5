@@ -1,10 +1,10 @@
-# RPlayer-CPP-Qt5
+RPlayer-CPP-Qt5
 
 A multimedia player developed in C++ using Qt 5.
 
 RPlayer is designed to play audio and video files, with additional audio recording functionality.
 
-## Features
+Features
 🎵 Audio playback
 🎬 Video playback
 🎙️ Audio recording
