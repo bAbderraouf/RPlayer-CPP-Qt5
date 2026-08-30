@@ -4,6 +4,8 @@
 #include <QMainWindow>
 #include <QtMultimedia>
 #include <QMediaPlayer>  // sub class of QtMultimedia
+#include <QVideoWidget>
+#include <QVBoxLayout>
 #include <QFileDialog>
 #include <QTimer>
 #include <QDebug>
@@ -58,12 +60,15 @@ private slots:
 
     void setElapsedTime(qint64 const& newValue );
 
+    void on_actionOpen_video_file_triggered();
+
 signals:
     void elapsedTimeChanged();
 
 private:
     Ui::MainWindow *ui;
     QMediaPlayer *player;
+    QVideoWidget *video;
     QString fileName;
     bool isMuted;
     bool PlayerWasPlaying;
@@ -72,6 +77,7 @@ private:
     qint64 remainingTimeInMs;
     qint64 mediaDurationInMs;
     stDuration mediaDuration;
+    QVBoxLayout *videoLayout;
 
     // mediaDuration = elapsedTime + remainingTime
     // duration = position + remainingTime

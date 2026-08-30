@@ -1,4 +1,4 @@
-QT       += core gui widgets multimedia qml
+QT       += core gui widgets multimedia multimediawidgets qml
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

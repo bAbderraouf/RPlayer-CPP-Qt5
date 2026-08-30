@@ -16,6 +16,9 @@ MainWindow::MainWindow(QWidget *parent)
     player = new QMediaPlayer(this);
     player->setVolume(ui->verticalSlider_volume->value());
 
+    videoLayout = new QVBoxLayout(ui->videoWidget);
+    video = new QVideoWidget(ui->videoWidget);
+
     timer = new QTimer(this);
     connect(timer , &QTimer::timeout , this , &MainWindow::OnTimeOut);
     connect(player, &QMediaPlayer::durationChanged , this , &MainWindow::OnDurationChanged);
@@ -61,7 +64,7 @@ void MainWindow::on_verticalSlider_volume_valueChanged(int value)
 
 void MainWindow::on_actionOpenAudioFile_triggered()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open File2"), "/", tr("Audio (*.mp3 *.ogg *.wav)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open audio File"), "/", tr("Audio (*.mp3 *.ogg *.wav)"));
 
     if (!fileName.isEmpty()) {
 
@@ -71,14 +74,36 @@ void MainWindow::on_actionOpenAudioFile_triggered()
 
         ui->label_fileNameStr->setText(file.fileName());
 
+
+
     }
 }
 
+void MainWindow::on_actionOpen_video_file_triggered()
+{
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open video File"), "/", tr("Video (*.mp4 *.Avi)"));
+
+    if (!fileName.isEmpty()) {
+
+        player->setVideoOutput(video);
+        player->setMedia(QUrl::fromLocalFile(fileName));
+
+        QFileInfo file(fileName);
+
+        ui->label_fileNameStr->setText(file.fileName());
+        videoLayout->addWidget(video);
+        videoLayout->setMargin(0);
+        video->show();
+
+    }
+}
+
+
 void MainWindow::on_pushButton_stop_clicked()
 {
-     player->stop();
-     timer->stop();
-     setElapsedTime(0); // 0ms
+    player->stop();
+    timer->stop();
+    setElapsedTime(0); // 0ms
 }
 
 void MainWindow::on_pushButton_back_clicked()
@@ -115,10 +140,10 @@ void MainWindow::OnDurationChanged()
 {
     // get media duration
     mediaDurationInMs = player->duration();
-     mediaDuration = SecondsToDuration(mediaDurationInMs/1000);
+    mediaDuration = SecondsToDuration(mediaDurationInMs/1000);
 
-     // update timeline (elapsed & remaining time)
-     UpdateTimeLine();
+    // update timeline (elapsed & remaining time)
+    UpdateTimeLine();
 
 }
 
@@ -215,3 +240,6 @@ void MainWindow::UpdateSlider()
 
 
 }
+
+
+
