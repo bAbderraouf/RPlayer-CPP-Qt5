@@ -72,6 +72,7 @@ private:
     QString fileName;
     bool isMuted;
     bool PlayerWasPlaying;
+    bool fullScreenMode = false;
     QTimer *timer;
     qint64 elapsedTimeInMs;
     qint64 remainingTimeInMs;
@@ -82,9 +83,15 @@ private:
     // mediaDuration = elapsedTime + remainingTime
     // duration = position + remainingTime
 
+protected:
+    void keyPressEvent(QKeyEvent *event);
+
 private:
     void UpdateTimeLine();
 
     void UpdateSlider();
+
+    // QWidget interface
+
 };
 #endif // MAINWINDOW_H

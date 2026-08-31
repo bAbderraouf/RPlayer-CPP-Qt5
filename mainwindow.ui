@@ -314,6 +314,19 @@ QSlider::groove:vertical {
    <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>toolBar</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionOpenAudioFile"/>
+   <addaction name="actionOpen_video_file"/>
+  </widget>
   <action name="actionOpenAudioFile">
    <property name="text">
     <string>Open audio file</string>
@@ -322,21 +335,6 @@ QSlider::groove:vertical {
   <action name="actionOpen_video_file">
    <property name="text">
     <string>Open video file</string>
-   </property>
-  </action>
-  <action name="actionqfdsfsqdf">
-   <property name="text">
-    <string>qfdsfsqdf</string>
-   </property>
-  </action>
-  <action name="actionqfs">
-   <property name="text">
-    <string>qfs</string>
-   </property>
-  </action>
-  <action name="actionfqsd">
-   <property name="text">
-    <string>fqsd</string>
    </property>
   </action>
  </widget>

@@ -21,6 +21,7 @@
 #include <QtWidgets/QSlider>
 #include <QtWidgets/QSpacerItem>
 #include <QtWidgets/QStatusBar>
+#include <QtWidgets/QToolBar>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -31,9 +32,6 @@ class Ui_MainWindow
 public:
     QAction *actionOpenAudioFile;
     QAction *actionOpen_video_file;
-    QAction *actionqfdsfsqdf;
-    QAction *actionqfs;
-    QAction *actionfqsd;
     QWidget *centralwidget;
     QVBoxLayout *verticalLayout_global;
     QWidget *videoWidget;
@@ -57,6 +55,7 @@ public:
     QMenuBar *menubar;
     QMenu *menuFile;
     QStatusBar *statusbar;
+    QToolBar *toolBar;
 
     void setupUi(QMainWindow *MainWindow)
     {
@@ -110,12 +109,6 @@ public:
         actionOpenAudioFile->setObjectName(QString::fromUtf8("actionOpenAudioFile"));
         actionOpen_video_file = new QAction(MainWindow);
         actionOpen_video_file->setObjectName(QString::fromUtf8("actionOpen_video_file"));
-        actionqfdsfsqdf = new QAction(MainWindow);
-        actionqfdsfsqdf->setObjectName(QString::fromUtf8("actionqfdsfsqdf"));
-        actionqfs = new QAction(MainWindow);
-        actionqfs->setObjectName(QString::fromUtf8("actionqfs"));
-        actionfqsd = new QAction(MainWindow);
-        actionfqsd->setObjectName(QString::fromUtf8("actionfqsd"));
         centralwidget = new QWidget(MainWindow);
         centralwidget->setObjectName(QString::fromUtf8("centralwidget"));
         verticalLayout_global = new QVBoxLayout(centralwidget);
@@ -262,10 +255,15 @@ public:
         statusbar = new QStatusBar(MainWindow);
         statusbar->setObjectName(QString::fromUtf8("statusbar"));
         MainWindow->setStatusBar(statusbar);
+        toolBar = new QToolBar(MainWindow);
+        toolBar->setObjectName(QString::fromUtf8("toolBar"));
+        MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
 
         menubar->addAction(menuFile->menuAction());
         menuFile->addAction(actionOpen_video_file);
         menuFile->addAction(actionOpenAudioFile);
+        toolBar->addAction(actionOpenAudioFile);
+        toolBar->addAction(actionOpen_video_file);
 
         retranslateUi(MainWindow);
 
@@ -277,9 +275,6 @@ public:
         MainWindow->setWindowTitle(QCoreApplication::translate("MainWindow", "MainWindow", nullptr));
         actionOpenAudioFile->setText(QCoreApplication::translate("MainWindow", "Open audio file", nullptr));
         actionOpen_video_file->setText(QCoreApplication::translate("MainWindow", "Open video file", nullptr));
-        actionqfdsfsqdf->setText(QCoreApplication::translate("MainWindow", "qfdsfsqdf", nullptr));
-        actionqfs->setText(QCoreApplication::translate("MainWindow", "qfs", nullptr));
-        actionfqsd->setText(QCoreApplication::translate("MainWindow", "fqsd", nullptr));
 #if QT_CONFIG(tooltip)
         label_fileNameStr->setToolTip(QCoreApplication::translate("MainWindow", "File Name", nullptr));
 #endif // QT_CONFIG(tooltip)
@@ -314,6 +309,7 @@ public:
         verticalSlider_volume->setToolTip(QCoreApplication::translate("MainWindow", "Volume", nullptr));
 #endif // QT_CONFIG(tooltip)
         menuFile->setTitle(QCoreApplication::translate("MainWindow", "File", nullptr));
+        toolBar->setWindowTitle(QCoreApplication::translate("MainWindow", "toolBar", nullptr));
     } // retranslateUi
 
 };

@@ -6,6 +6,7 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    this->setFocusPolicy(Qt::StrongFocus); //  Il peut recevoir le focus avec Tab et avec un clic.
 
     isMuted = false;
     PlayerWasPlaying = false;
@@ -17,7 +18,8 @@ MainWindow::MainWindow(QWidget *parent)
     player->setVolume(ui->verticalSlider_volume->value());
 
     videoLayout = new QVBoxLayout(ui->videoWidget);
-    video = new QVideoWidget(ui->videoWidget);
+    video = new QVideoWidget(this);
+    video->setFocusPolicy(Qt::StrongFocus);
 
     timer = new QTimer(this);
     connect(timer , &QTimer::timeout , this , &MainWindow::OnTimeOut);
@@ -81,7 +83,7 @@ void MainWindow::on_actionOpenAudioFile_triggered()
 
 void MainWindow::on_actionOpen_video_file_triggered()
 {
-    QString fileName = QFileDialog::getOpenFileName(this, tr("Open video File"), "/", tr("Video (*.mp4 *.Avi)"));
+    QString fileName = QFileDialog::getOpenFileName(this, tr("Open video File"), "/", tr("Video (*.mp4 *.Avi *.Flv *.Mkv)"));
 
     if (!fileName.isEmpty()) {
 
@@ -95,7 +97,37 @@ void MainWindow::on_actionOpen_video_file_triggered()
         videoLayout->setMargin(0);
         video->show();
 
+        qDebug() << video->focusPolicy();
+        qDebug() << "-----------------";
+        qDebug() << this->focusPolicy();
+
     }
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event)
+{
+    if(event->key() == Qt::Key_F)
+    {
+        fullScreenMode = !fullScreenMode;
+        video->setFullScreen(fullScreenMode);
+        this->setFocus();
+         qDebug() << "Focus :" << QApplication::focusWidget();
+    }
+    if(event->key() == Qt::Key_Escape)
+    {
+        fullScreenMode = false;
+        video->setFullScreen(fullScreenMode);
+        this->setFocus();
+
+        qDebug() << "Focus :" << QApplication::focusWidget();
+    }
+    if(event->key() == Qt::Key_M)
+    {
+        isMuted = !isMuted;
+        player->setMuted(isMuted);
+        this->setFocus();
+    }
+
 }
 
 
