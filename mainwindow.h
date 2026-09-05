@@ -7,6 +7,7 @@
 #include <QVideoWidget>
 #include <QVBoxLayout>
 #include <QFileDialog>
+#include <QKeyEvent>
 #include <QTimer>
 #include <QDebug>
 #include <QStyle>
@@ -62,6 +63,8 @@ private slots:
 
     void on_actionOpen_video_file_triggered();
 
+    bool eventFilter(QObject *watched, QEvent *event) override;
+
 signals:
     void elapsedTimeChanged();
 
@@ -90,8 +93,6 @@ private:
     void UpdateTimeLine();
 
     void UpdateSlider();
-
-    // QWidget interface
 
 };
 #endif // MAINWINDOW_H

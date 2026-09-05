@@ -20,6 +20,8 @@ MainWindow::MainWindow(QWidget *parent)
     videoLayout = new QVBoxLayout(ui->videoWidget);
     video = new QVideoWidget(this);
     video->setFocusPolicy(Qt::StrongFocus);
+    video->installEventFilter(this); // to filter event (all widgets)
+
 
     timer = new QTimer(this);
     connect(timer , &QTimer::timeout , this , &MainWindow::OnTimeOut);
@@ -97,11 +99,36 @@ void MainWindow::on_actionOpen_video_file_triggered()
         videoLayout->setMargin(0);
         video->show();
 
-        qDebug() << video->focusPolicy();
-        qDebug() << "-----------------";
-        qDebug() << this->focusPolicy();
 
     }
+}
+
+bool MainWindow::eventFilter(QObject *dest, QEvent *event)
+{
+    if(dest == video  && event->type() == QEvent::KeyPress )
+    {
+        QKeyEvent   *keyEvent = static_cast<QKeyEvent*>(event);
+
+        if(keyEvent->key() == Qt::Key_F)
+        {
+            fullScreenMode = !fullScreenMode;
+            video->setFullScreen(fullScreenMode);
+        }
+        if(keyEvent->key() == Qt::Key_Escape)
+        {
+            fullScreenMode = false;
+            video->setFullScreen(fullScreenMode);
+        }
+        if(keyEvent->key() == Qt::Key_M)
+        {
+            isMuted = !isMuted;
+            player->setMuted(isMuted);
+        }
+
+        return true;
+
+    }
+    QObject::eventFilter(dest , event);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -110,22 +137,16 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
     {
         fullScreenMode = !fullScreenMode;
         video->setFullScreen(fullScreenMode);
-        this->setFocus();
-         qDebug() << "Focus :" << QApplication::focusWidget();
     }
     if(event->key() == Qt::Key_Escape)
     {
         fullScreenMode = false;
         video->setFullScreen(fullScreenMode);
-        this->setFocus();
-
-        qDebug() << "Focus :" << QApplication::focusWidget();
     }
     if(event->key() == Qt::Key_M)
     {
         isMuted = !isMuted;
         player->setMuted(isMuted);
-        this->setFocus();
     }
 
 }
